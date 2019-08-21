@@ -1,7 +1,12 @@
 package com.rybarstudios.animatedimages
 
+import android.graphics.drawable.Animatable
+import android.graphics.drawable.AnimatedImageDrawable
+import android.graphics.drawable.AnimationDrawable
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -39,10 +44,38 @@ class MainActivity : AppCompatActivity() {
             decrementPointer()
             displayImage()
         }
+
+        play_animation_button.setOnClickListener {
+            when (pointer) {
+                0 -> animateAnimationDrawable(drawableIds[pointer], image_display)
+                1 -> animateGif(drawableIds[pointer], image_display)
+            }
+            animateVectorDrawable(R.drawable.avd_play_to_pause, it as ImageView)
+        }
     }
 
     private fun displayImage() {
         image_display.setImageDrawable(ContextCompat.getDrawable(this, drawableIds[pointer]))
+    }
+
+    private fun animateAnimationDrawable(id: Int, view: ImageView) {
+        val animation = ContextCompat.getDrawable(this, id)
+        view.setImageDrawable(animation)
+        (animation as AnimationDrawable).start()
+    }
+
+    private fun animateVectorDrawable(id: Int, view: ImageView) {
+        val animation = ContextCompat.getDrawable(this, id)
+        view.setImageDrawable(animation)
+        (animation as Animatable).start()
+    }
+
+    private fun animateGif(id: Int, view: ImageView) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            val animation = ContextCompat.getDrawable(this, id)
+            view.setImageDrawable(animation)
+            (animation as AnimatedImageDrawable).start()
+        }
     }
 
 }
