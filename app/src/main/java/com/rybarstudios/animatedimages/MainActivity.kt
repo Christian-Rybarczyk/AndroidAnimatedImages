@@ -12,8 +12,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    val drawableIds = listOf(R.drawable.colorful_space, R.drawable.space)
-    var pointer = 0
+    private val drawableIds = listOf(R.drawable.colorful_space, R.drawable.space)
+    private var pointer = 0
 
     private fun incrementPointer() {
         ++pointer
@@ -45,12 +45,12 @@ class MainActivity : AppCompatActivity() {
             displayImage()
         }
 
-        play_animation_button.setOnClickListener {
+        play_animation_button.setOnClickListener { view ->
             when (pointer) {
                 0 -> animateAnimationDrawable(drawableIds[pointer], image_display)
                 1 -> animateGif(drawableIds[pointer], image_display)
             }
-            animateVectorDrawable(R.drawable.avd_play_to_pause, it as ImageView)
+            animateVectorDrawable(R.drawable.avd_play_to_pause, view as ImageView)
         }
     }
 
