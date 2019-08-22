@@ -16,7 +16,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val drawableIds = listOf(R.drawable.colorful_space, R.drawable.space, R.drawable.space_clouds)
+    private val drawableIds = listOf(R.drawable.colorful_space,
+        R.drawable.space,
+        R.drawable.space_clouds,
+        R.drawable.astronaut,
+        R.drawable.shooting_spaceship)
     private var pointer = 0
     private var isPlaying = false
 
@@ -119,7 +123,7 @@ class MainActivity : AppCompatActivity() {
                 stopAanimateAnimationDrawable(drawableIds[pointer], image_display)
                 false
             }
-            1, 2 -> isPlaying = if (!isPlaying) {
+            1, 2, 3, 4 -> isPlaying = if (!isPlaying) {
                 animateGif(drawableIds[pointer], image_display)
                 true
             } else {
